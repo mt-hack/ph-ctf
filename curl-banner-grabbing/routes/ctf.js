@@ -5,6 +5,7 @@ module.exports = (app) => {
     });
 
     let ctfFlags = {
+        "redirect": "PH{cur1_locati0n_redirect}",
         "response-header": "PH{reSp0nse_hEAdER_v!a_cur1}",
         "ua-identify": "PH{y0u_kn0w_how_to_sp0of_user_agent!}",
         "order-post": "PH{p0sting_outside_of_br0wser_1s_dope}",
@@ -12,10 +13,22 @@ module.exports = (app) => {
         "order-as-human": "PH{th1s_happens_more_0ften_than_youd_think}"
     }
 
+    app.get('/challenge/redirect', (req, res)=>{
+        if(!req.useragent.isCurl){
+            res.status(400).send("Sorry, you must use curl to solve this challenge.");
+            return;
+        }
+        res.redirect('/redirect-secret/');
+    })
+    app.get('/redirect-secret', (req, res)=>{
+        res.send(ctfFlags["redirect"]);
+    });
+
     app.get('/challenge/response-header', (req, res) => {
         res.append('Server', btoa(ctfFlags["response-header"]));
         res.send("Hello there!");
     })
+
     app.get('/challenge/ua-identify', (req, res) => {
         if (req.useragent.isEdge && req.useragent.isMac) {
             res.send(ctfFlags["ua-identify"]);
@@ -23,6 +36,7 @@ module.exports = (app) => {
             res.status(400).send("You must be using Edge on macOS to see the flag!");
         }
     });
+
     app.route('/challenge/order')
         .post(urlEncodedParser, (req, res) => {
             if (req.body.item) {
