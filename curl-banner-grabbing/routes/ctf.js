@@ -13,18 +13,18 @@ module.exports = (app) => {
         "order-as-human": "PH{th1s_happens_more_0ften_than_youd_think}"
     }
 
-    app.get('/', (req, res)=>{
+    app.get('/', (req, res) => {
         res.redirect('https://sites.google.com/view/pingtunghacker');
     });
 
-    app.get('/challenge/redirect', (req, res)=>{
-        if(!req.useragent.isCurl){
+    app.get('/challenge/redirect', (req, res) => {
+        if (!req.useragent.isCurl) {
             res.status(400).send("Sorry, you must use curl to solve this challenge.");
             return;
         }
         res.redirect('/redirect-secret/');
     })
-    app.get('/redirect-secret', (req, res)=>{
+    app.get('/redirect-secret', (req, res) => {
         res.send(ctfFlags["redirect"]);
     });
 
@@ -71,20 +71,28 @@ module.exports = (app) => {
                 res.status(400).send("We don't serve bots or crawler here!");
                 return;
             }
-            let referrer = req.get("Referrer");
-            if (referrer) {
-                console.log(`Referrer from remote was set to: ${referrer}`)
-                let referrerUrl = require('url').parse(referrer);
-                if (referrerUrl) {
-                    if (referrerUrl.host === "localhost" || referrerUrl.host === "127.0.0.1") {
-                        res.send(`Enjoy your <b>${item}</b>! ${ctfFlags["order-as-human"]}`);
-                        return;
-                    }
+            let authorizationToken = req.get('Authorization');
+            if (authorizationToken){
+                let parsedAuth = require('basic-auth').parse(authorizationToken);
+                if (parsedAuth.name === "PH" && parsedAuth.pass === ctfFlags["order-post"]){
+                    res.send(ctfFlags["order-as-human"]);
+                    return;
                 }
             }
-            res.status(400).send("We don't serve outsiders here! You need to be referred from our home to order anything!");
+            res.status(400).send(
+                "You need to be authorized! Please authorize via basic authorization.\r\n"+
+                "Username: PH\r\n" + 
+                "Password: Flag from the ORDER (POST) challenge\r\n" + 
+                "See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization");
         })
         .all((req, res) => {
             res.status(405).send("Only POST allowed!");
         });
+
+    function isPrivateIP(ip) {
+        var parts = ip.split('.');
+        return parts[0] === '10' ||
+            (parts[0] === '172' && (parseInt(parts[1], 10) >= 16 && parseInt(parts[1], 10) <= 31)) ||
+            (parts[0] === '192' && parts[1] === '168');
+    }
 }
