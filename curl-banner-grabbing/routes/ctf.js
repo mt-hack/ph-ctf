@@ -67,11 +67,13 @@ module.exports = (app) => {
                 return;
             }
             if (req.useragent.isCurl || req.useragent.isBot || req.useragent.browser === "unknown" || req.useragent.version === undefined) {
+                console.log(req.useragent);
                 res.status(400).send("We don't serve bots or crawler here!");
                 return;
             }
             let referrer = req.get("Referrer");
             if (referrer) {
+                console.log(`Referrer from remote was set to: ${referrer}`)
                 let referrerUrl = require('url').parse(referrer);
                 if (referrerUrl) {
                     if (referrerUrl.host === "localhost" || referrerUrl.host === "127.0.0.1") {
