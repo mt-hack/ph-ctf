@@ -74,7 +74,7 @@ module.exports = (app) => {
             let authorizationToken = req.get('Authorization');
             if (authorizationToken){
                 let parsedAuth = require('basic-auth').parse(authorizationToken);
-                if (parsedAuth.name === "PH" && parsedAuth.pass === ctfFlags["order-post"]){
+                if (parsedAuth && parsedAuth.name === "PH" && parsedAuth.pass === ctfFlags["order-post"]){
                     res.send(ctfFlags["order-as-human"]);
                     return;
                 }
