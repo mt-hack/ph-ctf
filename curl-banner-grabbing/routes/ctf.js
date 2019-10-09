@@ -43,14 +43,18 @@ module.exports = (app) => {
 
     app.route('/challenge/order')
         .post(urlEncodedParser, (req, res) => {
-            if (req.body.item) {
+            if ("car".localeCompare(req.body.item, undefined, {
+                    sensitivity: "base"
+                }) === 0) {
                 res.send(ctfFlags["order-post"]);
             } else {
                 res.status(400).send("What <b>item</b> would you like? Tell me via URL encoded form data.");
             }
         })
         .get((req, res) => {
-            if (req.query.item) {
+            if ("carrot".localeCompare(req.query.item, undefined, {
+                    sensitivity: "base"
+                }) === 0) {
                 res.send(ctfFlags["order-get"]);
             } else {
                 res.status(400).send("What <b>item</b> would you like? Tell me via query string!");
@@ -72,27 +76,20 @@ module.exports = (app) => {
                 return;
             }
             let authorizationToken = req.get('Authorization');
-            if (authorizationToken){
+            if (authorizationToken) {
                 let parsedAuth = require('basic-auth').parse(authorizationToken);
-                if (parsedAuth && parsedAuth.name === "PH" && parsedAuth.pass === ctfFlags["order-post"]){
+                if (parsedAuth && parsedAuth.name === "PH" && parsedAuth.pass === ctfFlags["order-post"]) {
                     res.send(ctfFlags["order-as-human"]);
                     return;
                 }
             }
             res.status(401).send(
-                "You need to be authorized! Please authorize via basic authorization.\r\n"+
-                "Username: PH\r\n" + 
-                "Password: Flag from the ORDER (POST) challenge\r\n" + 
+                "You need to be authorized! Please authorize via basic authorization.\r\n" +
+                "Username: PH\r\n" +
+                "Password: Flag from the ORDER (POST) challenge\r\n" +
                 "See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization");
         })
         .all((req, res) => {
             res.status(405).send("Only POST allowed!");
         });
-
-    function isPrivateIP(ip) {
-        var parts = ip.split('.');
-        return parts[0] === '10' ||
-            (parts[0] === '172' && (parseInt(parts[1], 10) >= 16 && parseInt(parts[1], 10) <= 31)) ||
-            (parts[0] === '192' && parts[1] === '168');
-    }
 }
