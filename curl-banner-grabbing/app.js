@@ -6,8 +6,22 @@ let port = 3000;
 
 app.disable('x-powered-by');
 app.disable('etag');
-app.use(morgan('combined'));
 app.use(useragent.express());
+
+// configure logging
+let fs = require('fs');
+let path = require('path');
+app.use(morgan('combined'));
+app.use(morgan('combined', {
+    stream: fs.createWriteStream(path.join(__dirname, "access.log"), {
+        flags: 'a'
+    })
+}));
+app.use(morgan('[FLAG] :remote-addr has successfully retrieved the flag for :url.', {
+    skip: function (req, res) {
+        return res.statusCode != 200;
+    }
+}));
 
 // configure helmet
 require('./configs/configureHeaders')(app);
