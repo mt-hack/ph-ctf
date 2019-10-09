@@ -25,7 +25,7 @@ module.exports = (app) => {
     });
 
     app.get('/challenge/response-header', (req, res) => {
-        res.append('Server', Buffer.from(ctfFlags["response-header"]).toString('base64');
+        res.append('Server', Buffer.from(ctfFlags["response-header"]).toString('base64'));
         res.send("Hello there!");
     })
 
