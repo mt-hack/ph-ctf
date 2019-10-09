@@ -46,14 +46,14 @@ module.exports = (app) => {
             if (req.body.item) {
                 res.send(ctfFlags["order-post"]);
             } else {
-                res.status(400).send("What <b>item</b> would you like?");
+                res.status(400).send("What <b>item</b> would you like? Tell me via URL encoded form data.");
             }
         })
         .get((req, res) => {
             if (req.query.item) {
                 res.send(ctfFlags["order-get"]);
             } else {
-                res.status(400).send("What <b>item</b> would you like?");
+                res.status(400).send("What <b>item</b> would you like? Tell me via query string!");
             }
         })
         .all((req, res) => {
@@ -63,7 +63,7 @@ module.exports = (app) => {
         .post(urlEncodedParser, (req, res) => {
             let item = req.body.item;
             if (!item) {
-                res.status(400).send("You must tell us what item you want!");
+                res.status(400).send("You must tell us what <b>item</b> you want in the form data!");
                 return;
             }
             if (req.useragent.isCurl || req.useragent.isBot || req.useragent.browser === "unknown" || req.useragent.version === undefined) {
