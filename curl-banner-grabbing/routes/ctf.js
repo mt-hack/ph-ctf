@@ -13,6 +13,10 @@ module.exports = (app) => {
         "order-as-human": "PH{th1s_happens_more_0ften_than_youd_think}"
     }
 
+    app.get('/', (req, res)=>{
+        res.redirect('https://sites.google.com/view/pingtunghacker');
+    });
+
     app.get('/challenge/redirect', (req, res)=>{
         if(!req.useragent.isCurl){
             res.status(400).send("Sorry, you must use curl to solve this challenge.");
