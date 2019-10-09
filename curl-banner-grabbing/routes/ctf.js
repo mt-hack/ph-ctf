@@ -79,7 +79,7 @@ module.exports = (app) => {
                     return;
                 }
             }
-            res.status(400).send(
+            res.status(401).send(
                 "You need to be authorized! Please authorize via basic authorization.\r\n"+
                 "Username: PH\r\n" + 
                 "Password: Flag from the ORDER (POST) challenge\r\n" + 
