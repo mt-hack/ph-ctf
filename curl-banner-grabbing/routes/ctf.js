@@ -66,7 +66,7 @@ module.exports = (app) => {
                 res.status(400).send("You must tell us what item you want!");
                 return;
             }
-            if (req.useragent.isCurl || req.useragent.isBot || req.useragent.browser === "unknown") {
+            if (req.useragent.isCurl || req.useragent.isBot || req.useragent.browser === "unknown" || req.useragent.version === undefined) {
                 res.status(400).send("We don't serve bots or crawler here!");
                 return;
             }
