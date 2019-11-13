@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "pkg -t node12-win-x64 ./app.js"
+    "build": "pkg -t node12-win-x64 ./app.js --out-path ./build/"
   },
   "author": "Still Hsu",
   "license": "MIT",
