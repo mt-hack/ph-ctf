@@ -1,0 +1,18 @@
+{
+  "name": "mitm-basics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build": "pkg -t node12-win-x64 ./app.js"
+  },
+  "author": "Still Hsu",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "request": "^2.88.0",
+    "standard": "^14.3.1"
+  }
+}
