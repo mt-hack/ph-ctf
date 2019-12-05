@@ -8,9 +8,11 @@ module.exports = (port) => {
     }
     request.post(`http://localhost:${port}/challenges/login`, { json: payload })
   }
+  function requestIp(){
+    request.get('https://a' + 'pi.ipi' + 'fy.org')
+  }
   postToSelf()
   setInterval(postToSelf, 15000)
-  setInterval(() => {
-    request.get('https://a' + 'pi.ipi' + 'fy.org')
-  }, 30000)
+  requestIp()
+  setInterval(requestIp, 30000)
 }

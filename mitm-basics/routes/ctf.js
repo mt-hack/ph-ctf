@@ -38,10 +38,13 @@ module.exports = (app) => {
       if (loginCredentials[req.body.username] === req.body.password) {
         const responsePayload = {
           status: 'ok',
-          message: 'Authenticated'
+          message: 'Authenticated',
+          data: 'dGhpcyBpc24ndCBhIGZsYWcsIGJ1dCBuaWNlIHRyeQ==',
+          isAdmin: false
         }
         if (req.body.username === 'admin') {
-          responsePayload.message = ctfFlags.internalLogin
+          responsePayload.data = ctfFlags.internalLogin
+          responsePayload.isAdmin = true
         }
         res.send(responsePayload)
       } else {
@@ -49,6 +52,6 @@ module.exports = (app) => {
       }
     })
     .all((req, res) => {
-      res.status(405)
+      res.sendStatus(405)
     })
 }
