@@ -1,0 +1,11 @@
+version: '3'
+services:
+    web:
+        build: .
+        volumes: 
+            - ".:/src/app"
+        image: node:alpine
+        ports:
+            - "1111:1111"
+        environment: 
+            - NJSPORT=1111
