@@ -14,6 +14,6 @@ app.get('/public', (req, res) => {
   }
 })
 app.get('/robots.txt', (req, res) => {
-  res.sendfile('robots.txt', { root: __dirname })
+  res.sendFile('robots.txt', { root: __dirname })
 })
 app.listen(port, () => { console.log(`Directory traversal demo up @ ${port}.`) })
