@@ -3,7 +3,7 @@ services:
     web:
         build: .
         volumes: 
-            - ".:/src/app"
+            - "./app:/src/app"
         image: node:alpine
         ports:
             - "1111:1111"
