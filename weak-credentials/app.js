@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const port = process.env.NJSPORT || 2222
+require('./configs/helmet')(app)
 app.use('/images', express.static('images'))
 app.use(morgan('combined'))
 require('./routes')(app)
