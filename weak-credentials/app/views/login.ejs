@@ -1,0 +1,54 @@
+<%- include('head'); -%>
+
+<body>
+    <%- include('header'); -%>
+    <!-- bro/br000 -->
+    <!-- adam/ada000-->
+    <%if (typeof(nonce) !== 'undefined' && typeof(failed) !== 'undefined'){%>
+    <script nonce=<%-nonce-%>> toastr.options = {"closeButton": true,"progressBar": true,"positionClass": "toast-bottom-full-width","showDuration": "10000","hideDuration": "1000","timeOut": "5000","extendedTimeOut": "1000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut", "escapeHtml": true}</script>
+    <%if (failed){%>
+    <script nonce=<%-nonce-%>> toastr["error"]("Try again!", "Login Failed")</script>
+    <%}else{%>
+    <script nonce=<%-nonce-%>> 
+    let flag = "PH{stup!d-w3ak-cred3ntial-happens-irl-too}"
+    toastr.options.onShown = function() { console.log(flag) }
+    toastr["success"]("Your flag is in the console.", "Login Successful")
+    </script>
+    <%}%>
+    <%}%>
+    <div class='login-card container grid-lg'>
+        <form class="form-horizontal" method="POST">
+            <div class="card">
+                <div class="card-image">
+                    <img src="../images/Wavey-Fingerprint.svg" width=1000 class="img-responsive">
+                </div>
+                <div class="card-header">
+                    <div class="card-title h5">Employee Login Portal</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="col-3 col-sm-12">
+                            <label class="form-label" for="username">Username</label>
+                        </div>
+                        <div class="col-9 col-sm-12">
+                            <input required class="form-input" type="text" name="username" autocomplete="username"
+                                placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-3 col-sm-12">
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+                        <div class="col-9 col-sm-12">
+                            <input required class="form-input" type="password" name="password"
+                                autocomplete="current-password" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
