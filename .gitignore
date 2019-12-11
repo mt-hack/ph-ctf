@@ -103,3 +103,5 @@ public
 .tern-port
 
 mitm-basics/build/
+
+weak-credentials/.data/mysql/
