@@ -2,10 +2,37 @@ version: '3'
 services:
     web:
         build: .
+        restart: always
         volumes: 
-            - "./app:/src/app"
+            - "./app:/root/app"
+        command:
+            sh -c "npm rebuild bcrypt --build-from-source && node app.js"
         image: node:alpine
         ports:
             - "1112:1112"
         environment: 
             - NJSPORT=1112
+            - MYSQL_DATABASE=${DBNAME}
+            - MYSQL_USER=${DBUSER}
+            - MYSQL_PASSWORD=${DBPASSWORD}
+        depends_on:
+            - db
+        networks:
+            default:
+            internal:
+    db:
+        image: mariadb
+        restart: always
+        networks:
+          internal:
+        volumes:
+          - .data/mysql:/var/lib/mysql
+        environment:
+          - MYSQL_DATABASE=${DBNAME}
+          - MYSQL_USER=${DBUSER}
+          - MYSQL_PASSWORD=${DBPASSWORD}
+          - MYSQL_ROOT_PASSWORD=${DBPASSWORD}
+networks:
+    default:
+    internal:
+        internal: true
