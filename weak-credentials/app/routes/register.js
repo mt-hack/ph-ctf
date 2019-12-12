@@ -23,7 +23,7 @@ router.post('/', urlencodedParser, (req, res) => {
       }).then(() => {
         res.render('register', { failure: false, message: `User ${req.body.username} created.` })
       }).catch((err) => {
-        res.render('register', { failure: true, message: err.message })
+        res.render('register', { failure: true, message: err.message || 'Generic error' })
       })
     } else {
       res.render('register', { failure: true, message: 'This username or email had already been used.' })
