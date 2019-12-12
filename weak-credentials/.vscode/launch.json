@@ -13,6 +13,16 @@
             ],
             "program": "${workspaceFolder}/app/app.js",
             "cwd": "${workspaceFolder}/app/"
+        },
+        {
+            "name": "Docker: Attach to Node",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}/app/",
+            "remoteRoot": "/root/app",
+            "protocol": "inspector"
         }
     ]
 }
