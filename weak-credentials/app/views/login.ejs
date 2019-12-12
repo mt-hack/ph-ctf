@@ -4,10 +4,10 @@
     <%- include('header'); -%>
     <!-- bro/br000 -->
     <!-- adam/ada000-->
-    <%if (typeof(nonce) !== 'undefined' && typeof(failed) !== 'undefined'){%>
+    <%if (typeof(nonce) !== 'undefined' && typeof(failure) !== 'undefined'&& typeof(message) !== 'undefined'){%>
     <script nonce=<%-nonce-%>> toastr.options = {"closeButton": true,"progressBar": true,"positionClass": "toast-bottom-full-width","showDuration": "10000","hideDuration": "1000","timeOut": "5000","extendedTimeOut": "1000","showEasing": "swing","hideEasing": "linear","showMethod": "fadeIn","hideMethod": "fadeOut", "escapeHtml": true}</script>
-    <%if (failed){%>
-    <script nonce=<%-nonce-%>> toastr["error"]("Try again!", "Login Failed")</script>
+    <%if (failure){%>
+    <script nonce=<%-nonce-%>> toastr["error"]('<%=message%>', "Login Failed")</script>
     <%}else{%>
     <script nonce=<%-nonce-%>> 
     let flag = "PH{stup!d-w3ak-cred3ntial-happens-irl-too}"

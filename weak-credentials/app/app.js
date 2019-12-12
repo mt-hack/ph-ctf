@@ -13,6 +13,8 @@ const routes = require('./routes/index')
 app.use('/', routes)
 const registerRoutes = require('./routes/register')
 app.use('/register', registerRoutes)
+const loginRoutes = require('./routes/login')
+app.use('/login', loginRoutes)
 // Configure database sync
 require('./models')
 
