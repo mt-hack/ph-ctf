@@ -6,10 +6,15 @@ services:
         volumes: 
             - "./app:/root/app"
         command:
+            # Prod
             sh -c "npm rebuild bcrypt --build-from-source && node app.js"
+            # Dev
+            # sh -c "npm rebuild bcrypt --build-from-source && node --inspect-brk=0.0.0.0 app.js"
         image: node:alpine
         ports:
             - "1112:1112"
+            # Dev - JS Inspect
+            # - "9229:9229"
         environment: 
             - NJSPORT=1112
             - MYSQL_DATABASE=${DBNAME}
