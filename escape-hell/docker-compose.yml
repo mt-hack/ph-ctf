@@ -1,0 +1,13 @@
+version: '3'
+services:
+    web:
+        build: .
+        restart: always
+        volumes: 
+            - "./app:/root/app"
+        image: node:alpine
+        ports:
+            - "3434:3434"
+        environment: 
+            - NJSPORT=3434
+            - PHFLAG="PH{b0xed_jS_hell}"
