@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model FileModel
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<h1>Good Evening, Sir!</h1>
+<h2>Would you like a dessert? 🍰</h2>
+<form method="post">
+    <div class="input-group">
+        <label asp-for="@Model.Path" class="input-group-addon input-lg">File</label>
+        <input asp-for="@Model.Path" class="form-input input-lg">
+        <button type="submit" class="btn btn-primary input-group-btn input-lg">Submit</button>
+    </div>
+    <br />
+    <span class="form-input-hint" asp-validation-for="Path"></span>
+</form>
+
+@if (ViewBag?.FilePath != null)
+{
+    <div class="container my-1">
+        <pre>@ViewBag.Response</pre>
+    </div>
+}

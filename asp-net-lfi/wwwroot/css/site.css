@@ -1,0 +1,18 @@
+﻿@media (prefers-color-scheme: dark) {
+  :root {
+    --alt-background-color: #555;
+    --background-color: #333;
+    --text-color: white;
+  }
+
+  body,
+  .form-input {
+    background: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .input-group .input-group-addon{
+    background-color: var(--alt-background-color);
+    color: var(--text-color);
+  }
+}
