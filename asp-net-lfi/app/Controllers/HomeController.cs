@@ -25,7 +25,7 @@ namespace asp_net_lfi.Controllers
             ViewBag.FilePath = file.Path;
             try
             {
-                var targetFilePath = Path.Combine(AppContext.BaseDirectory, file.Path);
+                var targetFilePath = Path.Combine(AppContext.BaseDirectory, file.Path.Replace("../", "").Replace("..\\", ""));
                 if (Directory.Exists(targetFilePath)) ViewBag.Response = "Target is a directory.";
                 _logger.LogInformation($"Attempting to read {targetFilePath}...");
                 await using var fs = System.IO.File.OpenRead(targetFilePath);
@@ -34,9 +34,9 @@ namespace asp_net_lfi.Controllers
                 var content = Encoding.UTF8.GetString(memory.Span).Trim();
                 ViewBag.Response = content;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Response = ex.Message;
+                ViewBag.Response = "Sorry chief, that ain't it.";
             }
 
             return View();

@@ -3,4 +3,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>asp_net_lfi</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\" />
+  </ItemGroup>
 </Project>
